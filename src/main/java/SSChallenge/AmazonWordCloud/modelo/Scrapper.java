@@ -7,6 +7,8 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.HashSet;
 
 @Component
@@ -23,9 +25,17 @@ public class Scrapper {
 
     public static void main(String[] args) {
         try {
-            Document document = Jsoup.connect("https://www.amazon.com/gp/product/B00TRQPVKM").get();
+            Document document = Jsoup
+                    .connect("https://www.amazon.com/gp/product/B00HUGXOAU")
+//                    .proxy("127.0.0.1", 1080)
+//                    .userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
+//                    .header("Content-Language", "en-US")
+                    .get();
+            //https://www.amazon.com/gp/product/B00HUGXOAU
+            //https://www.amazon.com/gp/product/B00TRQPVKM
             Element description = document.getElementById("productDescription");
             if (description == null) {
+                System.out.println(document.text());
                 System.out.println("Product Description not found");
                 return;
             }
@@ -38,7 +48,6 @@ public class Scrapper {
                 palabraLimpia = palabraLimpia.toLowerCase();
                 System.out.println(palabraLimpia);
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -61,10 +70,7 @@ public class Scrapper {
                     Palabra palabra1 = new Palabra(palabraLimpia);
                     palabraServicio.guardarPalabra(palabra1);
                 }
-
             }
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
