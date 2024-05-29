@@ -1,5 +1,6 @@
 package SSChallenge.AmazonWordCloud.controlador;
 
+import SSChallenge.AmazonWordCloud.modelo.Scrapper;
 import SSChallenge.AmazonWordCloud.modelo.Sitio;
 import SSChallenge.AmazonWordCloud.servicio.sitio.SitioServicio;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +14,12 @@ import java.nio.charset.StandardCharsets;
 public class SitioControlador {
 
     private final SitioServicio sitioServicio;
+    private final Scrapper scrapper;
 
-    public SitioControlador(SitioServicio sitioServicio) {
+    public SitioControlador(SitioServicio sitioServicio, Scrapper scrapper) {
         this.sitioServicio = sitioServicio;
+        this.scrapper = scrapper;
+
     }
 
     @PostMapping("api/sitios")
@@ -25,7 +29,11 @@ public class SitioControlador {
         Sitio sitio = new Sitio();
         sitio.setProductUrl(urlDecodificada);
         sitio.setProductCode(productCode);
-        sitioServicio.guardarSitio(sitio);
-    }
+        if (sitioServicio.buscarSitioPorCodigo(productCode) == null) {
+            sitioServicio.guardarSitio(sitio);
+            scrapper.procesarLink(sitio.getProductUrl());
+        }
 
+
+    }
 }

@@ -18,6 +18,6 @@ public class SitioServicio implements ISitioServicio{
 
     @Override
     public Sitio buscarSitioPorCodigo(String codigo) {
-        return sitioRepositorio.findByProductCode(codigo);
+        return sitioRepositorio.findById(codigo).orElse(null);
     }
 }
