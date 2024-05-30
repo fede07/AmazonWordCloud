@@ -33,7 +33,7 @@ public class Lector {
                 stopWords.add(word);
             }
         }catch (FileNotFoundException e){
-            System.out.println("Archivo no encontrado");
+            System.out.println("Archivo Stopwords no encontrado. No se filtraran palabras comunes.");
         }
         return stopWords;
     }

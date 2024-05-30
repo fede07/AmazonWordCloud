@@ -5,6 +5,8 @@ import SSChallenge.AmazonWordCloud.repositorio.PalabraRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PalabraServicio implements IPalabraServicio{
 
@@ -26,5 +28,10 @@ public class PalabraServicio implements IPalabraServicio{
         }else {
             palabraRepositorio.save(palabra);
         }
+    }
+
+    @Override
+    public List<Palabra> listarPalabras() {
+        return palabraRepositorio.findAll();
     }
 }

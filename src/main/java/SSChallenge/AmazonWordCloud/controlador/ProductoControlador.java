@@ -2,7 +2,7 @@ package SSChallenge.AmazonWordCloud.controlador;
 
 import SSChallenge.AmazonWordCloud.modelo.Scrapper;
 import SSChallenge.AmazonWordCloud.modelo.Producto;
-import SSChallenge.AmazonWordCloud.servicio.sitio.ProductoServicio;
+import SSChallenge.AmazonWordCloud.servicio.producto.ProductoServicio;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +15,12 @@ public class ProductoControlador {
 
     private final ProductoServicio productoServicio;
     private final Scrapper scrapper;
+    private final MainControlador mainControlador;
 
-    public ProductoControlador(ProductoServicio productoServicio, Scrapper scrapper) {
+    public ProductoControlador(ProductoServicio productoServicio, Scrapper scrapper, MainControlador mainControlador) {
         this.productoServicio = productoServicio;
         this.scrapper = scrapper;
-
+        this.mainControlador = mainControlador;
     }
 
     @PostMapping("api/productos")
@@ -32,6 +33,7 @@ public class ProductoControlador {
         if (productoServicio.buscarProductoPorCodigo(productCode) == null) {
             productoServicio.guardarProducto(producto);
             scrapper.procesarLink(producto.getProductUrl());
+            mainControlador.listarPalabras();
         }
 
 

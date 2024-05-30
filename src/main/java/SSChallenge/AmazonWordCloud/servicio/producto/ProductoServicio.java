@@ -1,4 +1,4 @@
-package SSChallenge.AmazonWordCloud.servicio.sitio;
+package SSChallenge.AmazonWordCloud.servicio.producto;
 
 import SSChallenge.AmazonWordCloud.modelo.Producto;
 import SSChallenge.AmazonWordCloud.repositorio.ProductoRepositorio;
