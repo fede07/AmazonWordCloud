@@ -41,7 +41,6 @@ public class MainControlador implements Initializable{
         tablaPalabras.getSortOrder().add(columnaApariciones);
         configurarColumnas();
         listarPalabras();
-
     }
 
     public void listarPalabras() {
