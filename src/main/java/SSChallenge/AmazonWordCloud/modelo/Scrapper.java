@@ -1,6 +1,7 @@
 package SSChallenge.AmazonWordCloud.modelo;
 
 import SSChallenge.AmazonWordCloud.servicio.palabra.PalabraServicio;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,12 +24,19 @@ public class Scrapper {
 
     public static void main(String[] args) {
         try {
-            Document document = Jsoup.connect("https://www.amazon.com/gp/product/B00TRQPVKM").get();
+            Connection.Response response = Jsoup.connect("https://www.amazon.com/gp/product/B00TRQPVKM")
+                    .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36")
+                    .referrer("https://www.google.com")
+                    .followRedirects(true)
+                    .execute();
+            Document document = response.parse();
             Element description = document.getElementById("productDescription");
             if (description == null) {
+                System.out.println(document.text());
                 System.out.println("Product Description not found");
                 return;
             }
+            description.getElementsByTag("h3").remove();
             System.out.println("Product Description: ");
             System.out.println(description.text());
             String[] palabras = description.text().split(" ");
@@ -46,11 +54,17 @@ public class Scrapper {
 
     public void procesarLink(String link) {
         try {
-            Document documento = Jsoup.connect(link).get();
+            Connection.Response response = Jsoup.connect(link)
+                    .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36")
+                    .referrer("https://www.google.com")
+                    .followRedirects(true)
+                    .execute();
+            Document documento = response.parse();
             Element descripcion = documento.getElementById("productDescription");
             if(descripcion == null) {
                 return;
             }
+            descripcion.getElementsByTag("h3").remove();
             String[] palabras = descripcion.text().split(" ");
             for(String palabra : palabras) {
                 String palabraLimpia = palabra.replaceAll("\\p{Punct}", "");
@@ -63,7 +77,6 @@ public class Scrapper {
                 }
 
             }
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);

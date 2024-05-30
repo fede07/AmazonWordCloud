@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class Palabra {
     @Id
     String palabra;
-    int apariciones;
+    int cantApariciones;
 
     public Palabra(String palabra) {
         this.palabra = palabra;
-        this.apariciones = 1;
+        this.cantApariciones = 1;
     }
 }

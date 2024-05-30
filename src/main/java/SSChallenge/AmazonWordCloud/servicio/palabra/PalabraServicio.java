@@ -20,8 +20,8 @@ public class PalabraServicio implements IPalabraServicio{
     public void guardarPalabra(Palabra palabra) {
         Palabra palabraExistente = buscarPalabra(palabra.getPalabra());
         if(palabraExistente != null){
-            int apariciones = palabraExistente.getApariciones();
-            palabraExistente.setApariciones(apariciones+1);
+            int apariciones = palabraExistente.getCantApariciones();
+            palabraExistente.setCantApariciones(apariciones+1);
             palabraRepositorio.save(palabraExistente);
         }else {
             palabraRepositorio.save(palabra);
