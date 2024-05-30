@@ -1,7 +1,9 @@
 package SSChallenge.AmazonWordCloud.controlador;
 
+import SSChallenge.AmazonWordCloud.evento.Evento;
 import SSChallenge.AmazonWordCloud.modelo.Palabra;
 import SSChallenge.AmazonWordCloud.servicio.palabra.PalabraServicio;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,13 +12,14 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class MainControlador implements Initializable {
+public class MainControlador implements Initializable{
     private final PalabraServicio palabraServicio;
     @FXML
     private TableView<Palabra> tablaPalabras;
@@ -36,7 +39,6 @@ public class MainControlador implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tablaPalabras.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tablaPalabras.getSortOrder().add(columnaApariciones);
-        columnaApariciones.setSortType(TableColumn.SortType.DESCENDING);
         configurarColumnas();
         listarPalabras();
 
@@ -46,14 +48,19 @@ public class MainControlador implements Initializable {
         palabrasList.clear();
         palabrasList.addAll(palabraServicio.listarPalabras());
         tablaPalabras.setItems(palabrasList);
-        columnaApariciones.setSortType(TableColumn.SortType.DESCENDING);
         tablaPalabras.getSortOrder().add(columnaApariciones);
         tablaPalabras.sort();
+    }
+
+    @EventListener({Evento.class})
+    public void listarPalabrasEvento() {
+        Platform.runLater(this::listarPalabras);
     }
 
     private void configurarColumnas() {
         columnaPalabra.setCellValueFactory(new PropertyValueFactory<>("palabra"));
         columnaApariciones.setCellValueFactory(new PropertyValueFactory<>("cantApariciones"));
+        columnaApariciones.setSortType(TableColumn.SortType.DESCENDING);
     }
 
 }

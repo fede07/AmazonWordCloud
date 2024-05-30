@@ -23,6 +23,7 @@ public class AmazonWordCloudFX extends Application {
         FXMLLoader loader = new FXMLLoader(AmazonWordCloudApplication.class.getResource("/templates/MainScene.fxml"));
         loader.setControllerFactory(context::getBean);
         Scene scene = new Scene(loader.load());
+
         primaryStage.setScene(scene);
         primaryStage.setTitle("Amazon Word Cloud");
         primaryStage.show();

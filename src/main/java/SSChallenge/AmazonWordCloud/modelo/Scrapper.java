@@ -6,7 +6,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.util.HashSet;
 
@@ -62,6 +61,8 @@ public class Scrapper {
             Document documento = response.parse();
             Element descripcion = documento.getElementById("productDescription");
             if(descripcion == null) {
+                System.out.println("Descripcion no encontrada");
+                System.out.println(documento.text());
                 return;
             }
             descripcion.getElementsByTag("h3").remove();
