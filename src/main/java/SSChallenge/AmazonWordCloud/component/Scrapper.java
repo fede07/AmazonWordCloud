@@ -14,7 +14,7 @@ import java.util.HashSet;
  * Web Scrapper
  */
 @Component
-public class Scrapper implements IScrapper {
+public class Scrapper {
 
     private final WordService wordService;
     private final HashSet<String> stopwords;
