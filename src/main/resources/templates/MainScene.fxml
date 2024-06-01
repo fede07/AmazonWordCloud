@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SSChallenge.AmazonWordCloud.controlador.MainSceneController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SSChallenge.AmazonWordCloud.controller.MainSceneController">
    <center>
       <TableView fx:id="tableWords" prefHeight="800" prefWidth="600.0">
           <placeholder>

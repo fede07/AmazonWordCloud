@@ -1,4 +1,4 @@
-package SSChallenge.AmazonWordCloud.controlador;
+package SSChallenge.AmazonWordCloud.controller;
 
 import SSChallenge.AmazonWordCloud.event.Event;
 import SSChallenge.AmazonWordCloud.model.Word;

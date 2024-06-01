@@ -1,7 +1,7 @@
-package SSChallenge.AmazonWordCloud.controlador;
+package SSChallenge.AmazonWordCloud.controller;
 
 import SSChallenge.AmazonWordCloud.event.Event;
-import SSChallenge.AmazonWordCloud.model.Scrapper;
+import SSChallenge.AmazonWordCloud.component.Scrapper;
 import SSChallenge.AmazonWordCloud.model.Product;
 import SSChallenge.AmazonWordCloud.service.product.ProductService;
 import org.springframework.context.ApplicationEventPublisher;

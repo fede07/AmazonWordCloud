@@ -1,4 +1,4 @@
-package SSChallenge.AmazonWordCloud.model;
+package SSChallenge.AmazonWordCloud.component;
 
 import org.springframework.stereotype.Component;
 

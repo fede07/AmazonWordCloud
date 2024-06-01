@@ -1,5 +1,6 @@
-package SSChallenge.AmazonWordCloud.model;
+package SSChallenge.AmazonWordCloud.component;
 
+import SSChallenge.AmazonWordCloud.model.Word;
 import SSChallenge.AmazonWordCloud.service.word.WordService;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -13,7 +14,7 @@ import java.util.HashSet;
  * Web Scrapper
  */
 @Component
-public class Scrapper {
+public class Scrapper implements IScrapper {
 
     private final WordService wordService;
     private final HashSet<String> stopwords;
@@ -21,7 +22,7 @@ public class Scrapper {
     public Scrapper(WordService wordService, Reader reader) {
         this.wordService = wordService;
         this.stopwords = reader.getStopWords();
-        System.out.println("Scrapper started-------------------------------------------------------");
+        System.out.println("Scrapper Constructed-------------------------------------------------------");
     }
 
     public static void main(String[] args) {
