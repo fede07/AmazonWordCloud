@@ -1,4 +1,4 @@
-package SSChallenge.AmazonWordCloud.modelo;
+package SSChallenge.AmazonWordCloud.model;
 
 import org.springframework.stereotype.Component;
 
@@ -7,14 +7,18 @@ import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Scanner;
 
+
+/**
+ * Lector de archivos.
+ */
 @Component
-public class Lector {
+public class Reader {
     public static void main(String[] args) {
         try {
-            File archivo = new File("src/main/resources/stopWords/english.txt");
-            Scanner leer = new Scanner(archivo);
-            while (leer.hasNextLine()) {
-                String word = leer.nextLine();
+            File file = new File("src/main/resources/stopWords/english.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String word = scanner.nextLine();
                 System.out.println(word);
             }
 
@@ -23,13 +27,17 @@ public class Lector {
         }
     }
 
+    /**
+     * Obtiene las stopwords del archivo "english.txt"
+     * @return Hashset con las palabras mas comunes segun el archivo "english.txt".
+     */
     public HashSet<String> getStopWords() {
         HashSet<String> stopWords = new HashSet<>();
         try {
-            File archivo = new File("src/main/resources/stopWords/english.txt");
-            Scanner leer = new Scanner(archivo);
-            while (leer.hasNextLine()) {
-                String word = leer.nextLine();
+            File file = new File("src/main/resources/stopWords/english.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String word = scanner.nextLine();
                 stopWords.add(word);
             }
         }catch (FileNotFoundException e){

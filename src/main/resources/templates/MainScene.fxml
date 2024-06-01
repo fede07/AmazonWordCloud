@@ -3,15 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SSChallenge.AmazonWordCloud.controlador.MainControlador">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SSChallenge.AmazonWordCloud.controlador.MainSceneController">
    <center>
-      <TableView fx:id="tablaPalabras" prefHeight="800" prefWidth="600.0">
+      <TableView fx:id="tableWords" prefHeight="800" prefWidth="600.0">
           <placeholder>
               <Label text="Esperando..."/>
           </placeholder>
         <columns>
-          <TableColumn fx:id="columnaPalabra" prefWidth="75.0" text="Palabra" />
-          <TableColumn fx:id="columnaApariciones" prefWidth="75.0" sortType="DESCENDING" text="Cantidad de Apariciones" />
+          <TableColumn fx:id="columnWord" prefWidth="75.0" text="Palabra" />
+          <TableColumn fx:id="columnOccurrences" prefWidth="75.0" sortType="DESCENDING" text="Cantidad de Apariciones" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -1,12 +1,12 @@
-package SSChallenge.AmazonWordCloud.modelo;
+package SSChallenge.AmazonWordCloud.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "products")
 @Data
-public class Producto {
+public class Product {
     @Id
     private String productCode;
     private String productUrl;

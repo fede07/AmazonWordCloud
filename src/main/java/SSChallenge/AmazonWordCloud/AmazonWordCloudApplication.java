@@ -1,6 +1,6 @@
 package SSChallenge.AmazonWordCloud;
 
-import SSChallenge.AmazonWordCloud.presentacion.AmazonWordCloudFX;
+import SSChallenge.AmazonWordCloud.presentation.AmazonWordCloudFX;
 import javafx.application.Application;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
