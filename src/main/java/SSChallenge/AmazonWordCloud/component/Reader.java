@@ -42,6 +42,7 @@ public class Reader {
                 String word = scanner.nextLine();
                 stopWords.add(word);
             }
+            scanner.close();
         }catch (FileNotFoundException e){
             System.out.println("Archivo Stopwords no encontrado. No se filtraran palabras comunes.");
         }
