@@ -4,6 +4,8 @@ import SSChallenge.AmazonWordCloud.model.Product;
 import SSChallenge.AmazonWordCloud.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService implements IProductService {
 
@@ -30,5 +32,10 @@ public class ProductService implements IProductService {
     @Override
     public Product findProductByCode(String code) {
         return productRepository.findById(code).orElse(null);
+    }
+
+    @Override
+    public List<Product> findAllProducts(){
+        return productRepository.findAll();
     }
 }

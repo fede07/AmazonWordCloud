@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -18,11 +20,13 @@ public class ProductController {
     private final ProductService productService;
     private final Scrapper scrapper;
     private final ApplicationEventPublisher eventPublisher;
+    private HashSet<String> productsHash;
 
     public ProductController(ProductService productService, Scrapper scrapper, ApplicationEventPublisher eventPublisher) {
         this.productService = productService;
         this.scrapper = scrapper;
         this.eventPublisher = eventPublisher;
+        getProducts();
     }
 
     /**
@@ -36,11 +40,22 @@ public class ProductController {
         Product product = new Product();
         product.setProductUrl(urlDecoded);
         product.setProductCode(productCode);
-        if (productService.findProductByCode(productCode) == null)
+        if (!productsHash.contains(product.getProductCode()))
         {
             productService.saveProduct(product);
+            productsHash.add(product.getProductCode());
             scrapper.processLink(product.getProductUrl());
             eventPublisher.publishEvent(new Event(productCode));
         }
     }
+
+    private void getProducts(){
+        productsHash = new HashSet<>();
+        List<Product> productsList = productService.findAllProducts();
+        for (Product product : productsList) {
+            productsHash.add(product.getProductCode());
+        }
+    }
+
+
 }

@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Web Scrapper
@@ -18,17 +18,25 @@ public class Scrapper {
 
     private final WordService wordService;
     private final HashSet<String> stopwords;
+    private final List<String> USER_AGENTS = Arrays.asList(
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36"
+    );
+    private static final Random RANDOM = new Random();
+
 
     public Scrapper(WordService wordService, Reader reader) {
         this.wordService = wordService;
         this.stopwords = reader.getStopWords();
+
         System.out.println("Scrapper Constructed-------------------------------------------------------");
     }
 
     public static void main(String[] args) {
         try {
             Connection.Response response = Jsoup.connect("https://www.amazon.com/gp/product/B00TRQPVKM")
-                    .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36")
+                    .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0")
                     .referrer("https://www.google.com")
                     .followRedirects(true)
                     .execute();
@@ -76,9 +84,10 @@ public class Scrapper {
      * @return Descripcion del producto.
      * @throws IOException execute()
      */
-    private static Element getDescription(String link) throws IOException {
+    private Element getDescription(String link) throws IOException {
+        String userAgent = USER_AGENTS.get(RANDOM.nextInt(USER_AGENTS.size()));
         Connection.Response response = Jsoup.connect(link)
-                .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36")
+                .userAgent(userAgent)
                 .referrer("https://www.google.com")
                 .followRedirects(true)
                 .execute();
